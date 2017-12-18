@@ -14,42 +14,49 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="paragraph col-xs-6 col-sm-12">
-            {if $wa->userId() == $event.contact_id}
-            <div class="card-help">
-            модерация новых пользователей
-            </div>
-
-            {elseif count($participation) > 0}
-            <div class="card-help">
-                <p>Я добавил:</p>
-                {foreach $participation as $p}
-                <p>{$p.name} - {$p.count}</p>
-                {/foreach}
-            </div>
+            {if !$wa->user()->isAuth()}
+                <div class="card-help">
+                    <a href="/site/login/" style="text-decoration: underline;
+color: #99cc33;">Войти</a>
+                </div>
             {else}
-            <div class="card-help">
-                <h3>Отметьте пункты с которыми вы можете помочь</h3>
-                <form action="" method="POST">
-                    {if count($event.stuff) > 0}
-                    <div class="items">
-                        {foreach $event.stuff as $stuff}
-                        <div class="item">
-                            <span class="name">{$stuff.name}</span>
-                            <input type="text" name="stuff[{$stuff.id}]" value="0">
-                            <span class="max-count">/{$stuff.count}</span>
-                            <span class="minus glyphicon glyphicon-menu-down"></span>
-                            <span class="plus glyphicon glyphicon-menu-up"></span>
+                {if $wa->userId() == $event.contact_id}
+                <div class="card-help">
+                модерация новых пользователей
+                </div>
+
+                {elseif count($participation) > 0}
+                <div class="card-help">
+                    <p>Я добавил:</p>
+                    {foreach $participation as $p}
+                    <p>{$p.name} - {$p.count}</p>
+                    {/foreach}
+                </div>
+                {else}
+                <div class="card-help">
+                    <h3>Отметьте пункты с которыми вы можете помочь</h3>
+                    <form action="" method="POST">
+                        {if count($event.stuff) > 0}
+                        <div class="items">
+                            {foreach $event.stuff as $stuff}
+                            <div class="item">
+                                <span class="name">{$stuff.name}</span>
+                                <input type="text" name="stuff[{$stuff.id}]" value="0">
+                                <span class="max-count">/{$stuff.count}</span>
+                                <span class="minus glyphicon glyphicon-menu-down"></span>
+                                <span class="plus glyphicon glyphicon-menu-up"></span>
+                            </div>
+                            <div class="clear"></div>
+                            {/foreach}
                         </div>
-                        <div class="clear"></div>
-                        {/foreach}
-                    </div>
-                    {/if}
-                    <input type="hidden" name="participant" value="{$wa->userId()}">
-                    <input type="hidden" name="event" value="{$event.id}">
-                    {$wa->csrf()}
-                    <button type="submit">Присоединиться!</button>
-                </form>
-            </div>
+                        {/if}
+                        <input type="hidden" name="participant" value="{$wa->userId()}">
+                        <input type="hidden" name="event" value="{$event.id}">
+                        {$wa->csrf()}
+                        <button type="submit">Присоединиться!</button>
+                    </form>
+                </div>
+                {/if}
             {/if}
         </div>
 
