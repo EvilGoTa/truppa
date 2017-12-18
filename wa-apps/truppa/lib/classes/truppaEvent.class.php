@@ -14,16 +14,17 @@ class truppaEvent implements ArrayAccess
     protected $valid = false;
     protected $model;
     protected $stuff;
-    protected $participation;
+    protected $mParticipation;
 
     public function __construct($data)
     {
         $this->model = new truppaEventModel();
         $this->stuff = new truppaEventStuffModel();
-        $this->participation = new truppaEventStuffParticipationModel();
+        $this->mParticipation = new truppaEventStuffParticipationModel();
 
         if (is_array($data)) {
             if ($this->validate($data)) {
+                $data['contact_id'] = wa()->getUser()->getId();
                 $this->data = $data;
             }
         } else {
@@ -39,9 +40,9 @@ class truppaEvent implements ArrayAccess
         $this->data['description'] = truppaBBcode::bbcode_to_html($this->data['description']);
         $this->data['stuff'] = $this->stuff->getByField('event_id', $this->id, true);
         foreach ($this->data['stuff'] as $key => $stuff) {
-            $this->data['stuff'][$key]['participants'] = $this->participation->getById($stuff['id']);
+            $this->data['stuff'][$key]['participants'] = $this->mParticipation->getById($stuff['id']);
         }
-        $this->data['participants'] = $this->participation->getParticipationContacts($this->id);
+        $this->data['participants'] = $this->mParticipation->getParticipationContacts($this->id);
     }
 
     public function save()
@@ -72,6 +73,22 @@ class truppaEvent implements ArrayAccess
 
     }
 
+    public function isParticipant($contact_id)
+    {
+        $participation = $this->mParticipation->getParticipation($this->id, $contact_id);
+        return $participation;
+    }
+
+    public function addStuff($s_id, $s_count, $contact_id)
+    {
+        $this->mParticipation->insert(array(
+            'stuff_id' => $s_id,
+            'contact_id' => $contact_id,
+            'count' => $s_count,
+            'approved' => 0,
+        ));
+    }
+
     private function generate_url($name)
     {
         $model = new truppaEventModel();
@@ -86,6 +103,19 @@ class truppaEvent implements ArrayAccess
             $count = $model->select('COUNT(*)')->where("url = '$url$salt'")->fetch();
         } while ($count['COUNT(*)'] > 0);
         return $url.$salt;
+    }
+
+    private function getStuffIds($forIN = false)
+    {
+        $result = [];
+        $stuff_ids = $this->stuff->getByField('event_id', $this->id, true);
+        foreach ($stuff_ids as $si) {
+            $result[] = $si['id'];
+        }
+        if (count($result) == 0 && $forIN) {
+            return [0];
+        }
+        return $result;
     }
 
     private function validate($data)

@@ -14,31 +14,51 @@
     </div>
     <div class="col-xs-12 col-sm-6 col-md-4">
         <div class="paragraph col-xs-6 col-sm-12">
+            {if $wa->userId() == $event.contact_id}
+            <div class="card-help">
+            модерация новых пользователей
+            </div>
+
+            {elseif count($participation) > 0}
+            <div class="card-help">
+                <p>Я добавил:</p>
+                {foreach $participation as $p}
+                <p>{$p.name} - {$p.count}</p>
+                {/foreach}
+            </div>
+            {else}
             <div class="card-help">
                 <h3>Отметьте пункты с которыми вы можете помочь</h3>
-                {if count($event.stuff) > 0}
-                <div class="items">
-                    {foreach $event.stuff as $stuff}
-                    <div class="item">
-                        <span class="name">{$stuff.name}</span>
-                        <input type="text" value="0">
-                        <span class="max-count">/{$stuff.count}</span>
-                        <span class="minus glyphicon glyphicon-menu-down"></span>
-                        <span class="plus glyphicon glyphicon-menu-up"></span>
-                    </div>
-                    <div class="clear"></div>
-                    {/foreach}
-                </div>
-                {/if}
                 <form action="" method="POST">
+                    {if count($event.stuff) > 0}
+                    <div class="items">
+                        {foreach $event.stuff as $stuff}
+                        <div class="item">
+                            <span class="name">{$stuff.name}</span>
+                            <input type="text" name="stuff[{$stuff.id}]" value="0">
+                            <span class="max-count">/{$stuff.count}</span>
+                            <span class="minus glyphicon glyphicon-menu-down"></span>
+                            <span class="plus glyphicon glyphicon-menu-up"></span>
+                        </div>
+                        <div class="clear"></div>
+                        {/foreach}
+                    </div>
+                    {/if}
                     <input type="hidden" name="participant" value="{$wa->userId()}">
+                    <input type="hidden" name="event" value="{$event.id}">
                     {$wa->csrf()}
                     <button type="submit">Присоединиться!</button>
                 </form>
             </div>
+            {/if}
         </div>
 
         <div class=" pupkin col-xs-6 col-sm-12">
+            {if $wa->userId() == $event.contact_id}
+            <div class="initials">
+            менеджмент участников
+            </div>
+            {else}
             <div class="initials">
                 <p>Участники</p>
                 {if count($event.participants)}
@@ -50,7 +70,7 @@
                         </a>
                         <div>
                             <a href="#"><p>{$contact.name}</p></a>
-                            <p class="ingidients"><span class="ingidients-name">{$p.stuff.name}</span><span class="ingidients-quantity">{$p.count}</span></p>
+                            <p class="ingidients"><span class="ingidients-name">{$p.name}</span><span class="ingidients-quantity">{$p.count}</span></p>
                         </div>
                     </div>
                     {/foreach}
@@ -61,18 +81,19 @@
                 <p>Ты можешь стать первым!</p>
                 {/if}
             </div>
+            {/if}
         </div>
         <div class="information col-xs-12">
             <p class="info">Информация</p>
-            <p>Страна: Россия</p>
-            <p>Город: Москва</p>
-            <p>Адрес: улица Пушкина,1</p>
-            <p>Участники: 3/15</p>
-            <p>Сбор до: 01.02.18</p>
-            <p>Начало: 01.02.18</p>
-            <p>Продолжительность: 15дней</p>
-            <p>Статус: публичное</p>
-            <p>Пароль: нет</p>
+            {*<p>Страна: Россия</p>*}
+            {*<p>Город: Москва</p>*}
+            <p>{$event.address}</p>
+            {*<p>Участники: 3/15</p>*}
+            <p>Сбор до: {$event.deadline|wa_date}</p>
+            {*<p>Начало: 01.02.18</p>*}
+            <p>Продолжительность: {$event.howlong} дней</p>
+            <p>Статус: {if $event.privacy == 'public'}публичное{else}приватное{/if}</p>
+            <p>Пароль: {$event.password|default:'нет'}</p>
             <img src="img/card-vk.png" alt=""><img src="img/card-f.png" alt=""><img src="img/card-od.png" alt=""><img src="img/card-tv.png" alt=""><img src="img/card-vb.png" alt="">
             <img src="img/card-vt.png" alt=""><img src="img/card.png" alt="">
         </div>
