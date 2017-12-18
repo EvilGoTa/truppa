@@ -1,0 +1,35 @@
+[name="data[stuff][name][]"] {
+    width: 75%!important;
+}
+[name="data[stuff][count][]"] {
+    width: 20%!important;
+}
+
+.stuff-field .wa-value {
+    margin-bottom: 5px;
+}
+
+#description {
+    width: 100%;
+    height: 190px;
+}
+
+.promo {
+    padding: 10px 20px;
+    min-height: 400px;
+    margin-bottom: 45px;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+    background: #fff;
+}
+
+.promo p {
+    color: #99cc33;
+    padding: 13px;
+    margin-top: 68px;
+    font-size: 16px;
+    /*min-height: 176px;*/
+    border-top: 1px solid;
+    margin: 55px 0 10px;
+}

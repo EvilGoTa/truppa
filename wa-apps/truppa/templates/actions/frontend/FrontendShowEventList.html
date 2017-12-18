@@ -1,0 +1,39 @@
+<section class="container">
+    {foreach $events as $ev}
+    <div class="glade col-xs-6 col-sm-4 col-lg-3" >
+        <div class="glade-parties">
+            <div class="picture">
+                <div class="picture-party">
+                    <a href="/event/view/{$ev.url}"><img src="{$wa_theme_url}img/currentl-party-logo.png"></a>
+                </div>
+
+                <div class="party">
+                    <p><a href="/event/view/{$ev.url}"><strong>{$ev.name}</strong></a></p>
+                    <a href="#">Вечеринка</a>
+                </div>
+            </div>
+
+            <div class="collections-item">
+                <div class="snack">
+                    <p>#водка</p>
+                    <p>#огурчики</p>
+                    <p>#колбаса</p>
+                    <p>#хлеб</p>
+                </div>
+
+                <div class="data">
+                    <p>Сбор до</p>
+                    <p>{$ev.deadline|date_format:'%d'}</p>
+                    <p>{$ev.deadline|date_format:'%m'}</p>
+                    <p>{$ev.deadline|date_format:'%y'}</p>
+                </div>
+
+                <div class="siti-parties">
+                    <p>Москва</p>
+                    <img src="{$wa_theme_url}img/currentl-party-link.png">
+                </div>
+            </div>
+        </div>
+    </div>
+    {/foreach}
+</section>

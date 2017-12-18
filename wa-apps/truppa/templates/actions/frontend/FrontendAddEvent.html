@@ -1,0 +1,223 @@
+<section class="container">
+    <form action="" method="POST">
+        <div class="col-md-4 col-sm-6 col-xs-12 ">
+            <div class="blocks name">
+                <h3>Название</h3>
+                <input type="text" name="data[name]">
+                <p>Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много, много полезнейшего текста</p>
+                <button type="button" class="btn btn-default btn-lg active check-button" data-field="name">Проверить</button>
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="blocks category">
+                <h3>Категория</h3>
+                <select name="data[category]" id="">
+                    {foreach $categories as $cat}
+                    <option value="{$cat.id}">{$cat.name|escape}</option>
+                    {/foreach}
+                </select>
+                <p>Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+                <!--<button type="button" class="btn btn-default btn-lg active">Проверить</button>-->
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="blocks private">
+                <h3>Настройка приватности</h3>
+                <input type="hidden" name="data[privacy]" value="public">
+                <input type="checkbox" name="data[privacy]" value="private" id="private-event"><label for="private-event">Это приватное мероприятие</label>
+                <h4>Пароль</h4>
+                <input type="text" name="data[password]">
+                <p class="">Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+                <!--<button type="button" class="btn btn-default btn-lg active">Проверить</button>-->
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 ">
+            <div class="blocks fees">
+                <h3>Окончание сборов</h3>
+                <input type="text" name="data[deadline]" id="datepicker">
+                <p>Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+                <!--<button type="button" class="btn btn-default btn-lg active">Проверить</button>-->
+            </div>
+        </div>
+
+        <!--<div class="col-md-4 col-sm-6 col-xs-12" style="opacity: 0.5">-->
+            <!--<div class="blocks even">-->
+                <!--<h3>Начало мероприятий</h3>-->
+
+                <!---->
+                <!--<p>Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>-->
+                <!--<button type="button" class="btn btn-default btn-lg active">Проверить</button>-->
+
+            <!--</div>-->
+        <!--</div>-->
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="blocks durability">
+                <h3>Длительность</h3>
+                <input type="text" name="data[howlong]">
+                <p class="">Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+                <!--<button type="button" class="btn btn-default btn-lg active">Проверить</button>-->
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12 ">
+            <div class="blocks organization">
+                <h3>Место проведения(или организации)</h3>
+                <select name="city" id="">
+                    {foreach $cities as $city}
+                    <option value="{$city.id}">{$city.name}</option>
+                    {/foreach}
+                </select>
+                <input type="text" name="data[location]" id="yandex-location">
+                <input type="hidden" name="data[location-lat]">
+                <input type="hidden" name="data[location-long]">
+                <p>Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+                <!--<button type="button" class="btn btn-default btn-lg active">Проверить</button>-->
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12" style="opacity: .5">
+            <div class="blocks participants">
+                <h3>Требуются участников</h3>
+
+                    <input type="text" name=" name">
+                    <p>Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+                    <!--<button type="button" class="btn btn-default btn-lg active">Проверить</button>-->
+
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12" style="opacity: .5">
+            <div class="blocks promo">
+                <h3>Промо-Изображение</h3>
+
+                <label for="promo-picture"><span>Выбрать</span><input type="file" name="form" id="promo-picture"></label>
+                <p class="">Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+
+
+            </div>
+        </div>
+
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="blocks needs">
+                <h3>Нужности <input type="button" id="more-stuff" class="btn btn-default btn-lg active" value="Еще"></h3>
+                <div class="stuff-field">
+                    <div class="wa-value template-stuff" style="display: none;">
+                        <input type="text" name="data[stuff][name][]">
+                        <input type="text" name="data[stuff][count][]">
+                    </div>
+                    <div class="wa-value">
+                        <input type="text" name="data[stuff][name][]">
+                        <input type="text" name="data[stuff][count][]">
+                    </div>
+                </div>
+                <p class="">Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+
+            </div>
+        </div>
+
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="promo">
+                <h3>Описание</h3>
+                <textarea name="data[description]" id="description"></textarea>
+                <p class="">Выдержка из правил,помогающая пользователю с первой попытки правильно заполнить поле. Много,много полезнейшего текста</p>
+                <!--<button type="submit" class="btn btn-default btn-lg active" id="wa-event-add">Добавить</button>-->
+            </div>
+        </div>
+    </form>
+</section>
+
+
+<!--<h1>Добавление мероприятия</h1>-->
+<!--<form action="" method="POST">-->
+    <!--<div class="wa-form">-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Название</div>-->
+            <!--<div class="wa-value">-->
+                <!--<input type="text" name="data[name]">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Категоиря</div>-->
+            <!--<div class="wa-value">-->
+                <!--<select name="data[category]" id="">-->
+                    <!--{foreach $categories as $cat}-->
+                    <!--<option value="{$cat.id}">{$cat.name|escape}</option>-->
+                    <!--{/foreach}-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Локация</div>-->
+            <!--<div class="wa-value">-->
+                <!--<select name="city" id="">-->
+                    <!--{foreach $cities as $city}-->
+                    <!--<option value="{$city.id}">{$city.name}</option>-->
+                    <!--{/foreach}-->
+                <!--</select>-->
+                <!--<input type="text" name="data[location]" id="yandex-location">-->
+                <!--<input type="hidden" name="data[location-lat]">-->
+                <!--<input type="hidden" name="data[location-long]">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Окончание сбора заявок</div>-->
+            <!--<div class="wa-value">-->
+                <!--<input type="text" name="data[deadline]" id="datepicker">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Продолжительность</div>-->
+            <!--<div class="wa-value">-->
+                <!--<input type="text" name="data[howlong]">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Приватность</div>-->
+            <!--<div class="wa-value">-->
+                <!--<select name="data[privacy]">-->
+                    <!--<option value="public">Публичное</option>-->
+                    <!--<option value="private">Приватное</option>-->
+                <!--</select>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Пароль</div>-->
+            <!--<div class="wa-value">-->
+                <!--<input type="text" name="data[password]">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-name">Описание</div>-->
+            <!--<div class="wa-value">-->
+                <!--<textarea name="data[description]" id="description"></textarea>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field stuff-field">-->
+            <!--<div class="wa-name">Стафф</div>-->
+            <!--<div class="wa-value template-stuff" style="display: none;">-->
+                <!--<input type="text" name="data[stuff][name][]">-->
+                <!--<input type="text" name="data[stuff][count][]">-->
+            <!--</div>-->
+            <!--<div class="wa-value">-->
+                <!--<input type="text" name="data[stuff][name][]">-->
+                <!--<input type="text" name="data[stuff][count][]">-->
+                <!--<input type="button" class="button more-stuff" value="Еще">-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--<div class="wa-field">-->
+            <!--<div class="wa-value">-->
+                <!--<input type="submit" class="button" id="wa-event-add" value="Добавить">-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</form>-->
+<div class="clear-both"></div>
+<!--
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/wa-apps/truppa/css/frontend/jquery.datetimepicker.min.css">
+-->
+<!--<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+<!--<script src="/wa-apps/truppa/js/jquery.datetimepicker.full.min.js"></script>-->
+

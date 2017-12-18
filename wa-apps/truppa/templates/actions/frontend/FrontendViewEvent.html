@@ -1,0 +1,80 @@
+<section class="container">
+
+    <div class="col-xs-12">
+        <div class="card-anonymous">
+            <h1>{$event.name}</h1>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-8">
+        <div class="card-collection">
+            {$event.description}
+        </div>
+        <div class="chat col-xs-12"><h3>Чат</h3></div>
+        <div class="blog col-xs-12"><h3>Блог</h3></div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="paragraph col-xs-6 col-sm-12">
+            <div class="card-help">
+                <h3>Отметьте пункты с которыми вы можете помочь</h3>
+                {if count($event.stuff) > 0}
+                <div class="items">
+                    {foreach $event.stuff as $stuff}
+                    <div class="item">
+                        <span class="name">{$stuff.name}</span>
+                        <input type="text" value="0">
+                        <span class="max-count">/{$stuff.count}</span>
+                        <span class="minus glyphicon glyphicon-menu-down"></span>
+                        <span class="plus glyphicon glyphicon-menu-up"></span>
+                    </div>
+                    <div class="clear"></div>
+                    {/foreach}
+                </div>
+                {/if}
+                <form action="" method="POST">
+                    <input type="hidden" name="participant" value="{$wa->userId()}">
+                    {$wa->csrf()}
+                    <button type="submit">Присоединиться!</button>
+                </form>
+            </div>
+        </div>
+
+        <div class=" pupkin col-xs-6 col-sm-12">
+            <div class="initials">
+                <p>Участники</p>
+                {if count($event.participants)}
+                    {foreach $event.participants as $p}
+                    <div class="initials-cucumber">
+                        {$contact = $wa->contact($p.contact_id)}
+                        <a href="truppa/member/{$p.contact_id}">
+                            <img src="{$contact->getPhoto()}" alt="">
+                        </a>
+                        <div>
+                            <a href="#"><p>{$contact.name}</p></a>
+                            <p class="ingidients"><span class="ingidients-name">{$p.stuff.name}</span><span class="ingidients-quantity">{$p.count}</span></p>
+                        </div>
+                    </div>
+                    {/foreach}
+                    {if count($event.participants) > 3}
+                    <a href="#" class="basement">Все участники</a>
+                    {/if}
+                {else}
+                <p>Ты можешь стать первым!</p>
+                {/if}
+            </div>
+        </div>
+        <div class="information col-xs-12">
+            <p class="info">Информация</p>
+            <p>Страна: Россия</p>
+            <p>Город: Москва</p>
+            <p>Адрес: улица Пушкина,1</p>
+            <p>Участники: 3/15</p>
+            <p>Сбор до: 01.02.18</p>
+            <p>Начало: 01.02.18</p>
+            <p>Продолжительность: 15дней</p>
+            <p>Статус: публичное</p>
+            <p>Пароль: нет</p>
+            <img src="img/card-vk.png" alt=""><img src="img/card-f.png" alt=""><img src="img/card-od.png" alt=""><img src="img/card-tv.png" alt=""><img src="img/card-vb.png" alt="">
+            <img src="img/card-vt.png" alt=""><img src="img/card.png" alt="">
+        </div>
+    </div>
+</section>

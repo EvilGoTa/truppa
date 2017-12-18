@@ -1,0 +1,43 @@
+{if $wa->currentUrl() == $wa_app_url && (empty($content))}
+
+    <div class="welcome">
+        <h1>no data</h1>
+    </div>
+
+{else}
+    {*var_dump($action)*}
+    <article class="content with-sidebar" itemscope itemtype="http://schema.org/WebPage">
+        {$content} {* see page.html *}
+    </article>
+
+    {if isset($page) && (empty($action) || $action == 'page')}
+        <div class="content">
+
+            <!-- FOLLOW -->
+            <aside class="connect inline">
+                {if !empty($theme_settings.facebook_likebox_code)}
+                    <div class="likebox">
+                        {$theme_settings.facebook_likebox_code}
+                    </div>
+                {/if}
+                {if !empty($theme_settings.twitter_timeline_code)}
+                    <div class="likebox">
+                        {$theme_settings.twitter_timeline_code}
+                    </div>
+                {/if}
+                {if !empty($theme_settings.vk_widget_code)}
+                    <div class="likebox">
+                        {$theme_settings.vk_widget_code}
+                    </div>
+                {/if}
+                {*
+                <div class="likebox">
+                     your custom social widget
+                </div>
+                *}
+            </aside>
+
+        </div>
+    {/if}
+
+{/if}
