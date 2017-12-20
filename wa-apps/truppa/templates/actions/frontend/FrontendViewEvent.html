@@ -63,6 +63,7 @@ color: #99cc33;">Войти</a>
         <div class=" pupkin col-xs-6 col-sm-12">
             {if $wa->userId() == $event.contact_id}
             <div class="initials">
+                <p>Участники</p>
             {$participants = $event->getParticipants()}
             {foreach $participants as $contact_id => $stuff}
                 <div class="initials-cucumber">
@@ -89,22 +90,25 @@ color: #99cc33;">Войти</a>
             {else}
             <div class="initials">
                 <p>Участники</p>
-                {if count($event.participants)}
-                    {foreach $event.participants as $p}
+                {$participants = $event->getParticipants()}
+                {if count($participants)}
+                    {foreach $participants as $contact_id => $stuff}
                     <div class="initials-cucumber">
-                        {$contact = $wa->contact($p.contact_id)}
+                        {$contact = $wa->contact($contact_id)}
                         <a href="truppa/member/{$p.contact_id}">
                             <img src="{$contact->getPhoto()}" alt="">
                         </a>
-                        <div>
+                        <div class="ingridients-wrapper">
                             <a href="#"><p>{$contact.name}</p></a>
-                            <p class="ingidients"><span class="ingidients-name">{$p.name}</span><span class="ingidients-quantity">{$p.count}</span></p>
+                            {foreach $stuff as $s}
+                            <p class="ingidients">
+                                <span class="ingidients-name">{$s.name}</span>
+                                <span class="ingidients-quantity">{$s.count}</span>
+                            </p>
+                            {/foreach}
                         </div>
                     </div>
                     {/foreach}
-                    {if count($event.participants) > 3}
-                    <a href="#" class="basement">Все участники</a>
-                    {/if}
                 {else}
                 <p>Ты можешь стать первым!</p>
                 {/if}
