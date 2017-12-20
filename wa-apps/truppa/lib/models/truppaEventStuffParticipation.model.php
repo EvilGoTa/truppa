@@ -40,4 +40,11 @@ class truppaEventStuffParticipationModel extends waModel
         }
         return $result;
     }
+
+    public function getParticipants($event_id)
+    {
+        return $this->query("SELECT p.`contact_id`, p.`count` AS req_count, s.name, s.count FROM {$this->table} p 
+          JOIN {$this->stuff_model->getTableName()} s ON s.id = p.`stuff_id`
+          WHERE s.event_id = {$event_id}")->fetchAll('contact_id', 2);
+    }
 }

@@ -27,6 +27,7 @@ class truppaFrontendViewEventAction extends truppaFrontendDefaultAction
             }
         }
 
+        $this->getResponse()->addJs('js/frontend/viewEvent.js', 'truppa');
         $this->view->assign('event', $event);
     }
 }

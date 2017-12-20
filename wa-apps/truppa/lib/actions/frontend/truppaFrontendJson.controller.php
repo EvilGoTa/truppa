@@ -47,4 +47,30 @@ class truppaFrontendJsonController extends waJsonController
             $this->response = array('check' => 'success');
         }
     }
+
+    public function deleteParticipantAction()
+    {
+        $event_id = waRequest::post('event_id', 0);
+        $contact_id = waRequest::post('contact_id', 0);
+        $user_id = wa()->getUser()->getId();
+
+        $eventModel = new truppaEventModel();
+        $event = $eventModel->getByField([
+            'id' => $event_id,
+            'contact_id' => $user_id
+        ]);
+        if ($event) {
+            $stuffModel = new truppaEventStuffModel();
+            $stuff = $stuffModel->getPaticipation($event['id']);
+            foreach ($stuff as $s) {
+//                wa_dump($s, $contact_id);
+                if ($s['contact_id'] == $contact_id) {
+                    $participantModel = new truppaEventStuffParticipationModel();
+                    $participantModel->deleteById($s['stuff_id']);
+                }
+            }
+        } else {
+            $this->errors = 1;
+        }
+    }
 }

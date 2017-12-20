@@ -73,6 +73,12 @@ class truppaEvent implements ArrayAccess
 
     }
 
+    public function getParticipants()
+    {
+        $result =  $this->mParticipation->getParticipants($this->id);
+        return $result;
+    }
+
     public function isParticipant($contact_id)
     {
         $participation = $this->mParticipation->getParticipation($this->id, $contact_id);

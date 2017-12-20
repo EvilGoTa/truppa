@@ -601,16 +601,28 @@ label{
     padding-top: 20px;
     color: #a0cf40;
 }
+.initials-cucumber {
+    transition: .2s;
+    overflow: auto;
+    opacity: 1;
+}
+.initials-cucumber.deleted {
+    opacity: 0;
+}
 .initials-cucumber img{
 	margin-right: 10px;
     overflow: hidden;
     width: 70px;
     margin-bottom: 10px;
 }
-.initials-cucumber div{
+.initials-cucumber div.ingridients-wrapper{
 	display: block;
     float: right;
     width: 70%;
+}
+.initials-cucumber .delete-participant {
+    position: absolute;
+    right: 19px;
 }
 .initials-cucumber p.ingidients{
 	background: #a0cf40;
